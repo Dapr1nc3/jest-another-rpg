@@ -40,6 +40,38 @@ test('gets inventory from player or returns false', () => {
     expect(player.getInventory()).toEqual(false);
 });
 
+//  A test to get information about the player's health
+test("gets player's health value", () => {
+    const player = new Player('Dave');
+
+    expect(player.getHealth()).toEqual(expect.stringContaining(player.health.toString()));
+});
+
+//  Method to check if the player is alive.
+test('checks if player is alive or not', () => {
+    const player = new Player('Dave');
+
+    expect(player.isAlive()).toBeTruthy();
+
+    player.health = 0;
+
+    expect(player.isAlive()).toBeFalsy();
+});
+
+// Method to see if the correct amount of health is being subtracted from the Player
+test("subtracts from player's health", () => {
+    const player = new Player('Dave');
+    const oldHealth = player.health;
+
+    player.reduceHealth(5);
+
+    expect(player.health).toBe(oldHealth - 5);
+
+    player.reduceHealth(99999);
+
+    expect(player.health).toBe(0);
+});
+
 // NOTES on .test files and running test
 // When you run npm run test, it will run all files within the __tests__ directory and any other .test files throughout the project.
 //  If you only want to run a particular group of related tests (known as a test suite), you can modify the npm run command as shown here:
